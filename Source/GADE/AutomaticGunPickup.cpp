@@ -16,7 +16,6 @@ AAutomaticGunPickup::AAutomaticGunPickup()
 	(*autoGunCollider).InitSphereRadius(80.f);
 	(*autoGunCollider).SetCollisionProfileName(TEXT("Trigger"));
 
-	//(*bulletSpawnArrow).SetupAttachment(GunMesh);
 }
 
 void AAutomaticGunPickup::OnPickupOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -41,7 +40,6 @@ void AAutomaticGunPickup::FireBullets()
 	{
 		Super::FireBullets();
 	    currentAmmoAmount = currentAmmoAmount - 1;
-		gunfireDamage = 12.f;
 	}
 }
 

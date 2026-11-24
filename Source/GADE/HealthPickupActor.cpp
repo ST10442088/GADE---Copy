@@ -56,8 +56,9 @@ void AHealthPickupActor::OnPickupOverlap(UPrimitiveComponent* OverlappedComp, AA
 	if (UHealthComponent* healthComponent = (*OtherActor).FindComponentByClass<UHealthComponent>())
 	{
 		(*healthComponent).Health = (*healthComponent).Health + 25;
+		(*healthComponent).HealthAmountChange.Broadcast((*healthComponent).Health);
 		ActivateDisablingTimer();
-		UE_LOG(LogTemp, Warning, TEXT("Health added!"));
+
 		if ((*healthComponent).Health > 100)
 		{
 			(*healthComponent).Health = 100;

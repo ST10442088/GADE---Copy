@@ -21,7 +21,7 @@ ABotAIController::ABotAIController()
 	(*PerceptionComponent).ConfigureSense(*sightSenseConfig);
 	(*PerceptionComponent).SetDominantSense((*sightSenseConfig).GetSenseImplementation());
 	(*PerceptionComponent).AgeStimuli(4.f);
-	(*PerceptionComponent).OnTargetPerceptionUpdated.AddDynamic(this, &ABotAIController::OnTargetPerceptionUpdate);
+	//(*PerceptionComponent).OnTargetPerceptionUpdated.AddDynamic(this, &ABotAIController::OnTargetPerceptionUpdate);
 }
 
 void ABotAIController::OnPossess(APawn* InPawn)
@@ -57,52 +57,4 @@ void ABotAIController::OnTargetPerceptionUpdate(AActor* actor, FAIStimulus AISti
 
 }
 
-/* void ABotAIController::OnTargetPerceptionUpdate(AActor* actor, FAIStimulus AIStimulus)
-{
-	UBlackboardComponent* blackboardComponent = GetBlackboardComponent();
-	if (!blackboardComponent) return;
-
-	FAISenseID senseID = UAISense::GetSenseID<UAISense_Sight>();
-	if (AIStimulus.Type != senseID) return;
-
-	if (ACharacter* detectedCharacter = Cast<ACharacter>(actor))
-	{
-		if (AIStimulus.WasSuccessfullySensed())
-		{
-			UObject* currentEnemy = blackboardComponent->GetValueAsObject(FName("EnemyEntity"));
-			if (currentEnemy != detectedCharacter)
-			{
-				if (AActor* oldEnemyActor = Cast<AActor>(currentEnemy))
-				{
-					oldEnemyActor->OnDestroyed.RemoveDynamic(this, &ABotAIController::HandleEnemyDestroyed);
-				}
-
-				detectedCharacter->OnDestroyed.AddUniqueDynamic(this, &ABotAIController::HandleEnemyDestroyed);
-				blackboardComponent->SetValueAsObject(FName("EnemyEntity"), detectedCharacter);
-				SetFocus(detectedCharacter);
-			}
-		}
-		else
-		{
-			if (blackboardComponent->GetValueAsObject(FName("EnemyEntity")) == detectedCharacter)
-			{
-				detectedCharacter->OnDestroyed.RemoveDynamic(this, &ABotAIController::HandleEnemyDestroyed);
-				blackboardComponent->ClearValue(FName("EnemyEntity"));
-				ClearFocus(EAIFocusPriority::Gameplay);
-			}
-		}
-	}
-}
-
-void ABotAIController::HandleEnemyDestroyed(AActor* DestroyedActor)
-{
-	if (UBlackboardComponent* blackboardComponent = GetBlackboardComponent())
-	{
-		if (blackboardComponent->GetValueAsObject(FName("EnemyEntity")) == DestroyedActor)
-		{
-			blackboardComponent->ClearValue(FName("EnemyEntity"));
-			ClearFocus(EAIFocusPriority::Gameplay);
-		}
-	}
-}*/
 

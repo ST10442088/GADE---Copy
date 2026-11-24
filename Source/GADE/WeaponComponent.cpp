@@ -131,8 +131,12 @@ bool UWeaponComponent::RefillAmmo()
 {
 	if (currentlyEquippedWeapon != nullptr )
 	{
-		automaticPickupWeapon->currentAmmoAmount = 30;
-		return true;
+		if (automaticPickupWeapon != nullptr)
+		{
+			(*automaticPickupWeapon).currentAmmoAmount = 30;
+			(*automaticPickupWeapon).OnNewAmmoAmount.Broadcast((*automaticPickupWeapon).currentAmmoAmount);
+		    return true;
+		}
     }
 	return false;
 }

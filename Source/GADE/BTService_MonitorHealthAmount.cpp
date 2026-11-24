@@ -44,4 +44,18 @@ void UBTService_MonitorHealthAmount::OnHealthChange(int32 healthAmount)
 	{
 		(*blackboardComponent).SetValueAsBool(IsHealthTooLow.SelectedKeyName, true);
 	}
+
+	else if(healthAmount >= 25)
+	{
+		(*blackboardComponent).SetValueAsBool(IsHealthTooLow.SelectedKeyName, false);
+	}
+}
+
+void UBTService_MonitorHealthAmount::InitializeFromAsset(UBehaviorTree& Asset)
+{
+	Super::InitializeFromAsset(Asset);
+	if (const UBlackboardData* blackboardAsset = GetBlackboardAsset())
+	{
+		IsHealthTooLow.ResolveSelectedKey(*blackboardAsset);
+	}
 }

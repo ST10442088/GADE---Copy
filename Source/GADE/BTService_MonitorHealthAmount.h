@@ -32,4 +32,6 @@ protected:
 
 	UFUNCTION()
 	void OnHealthChange(int32 healthAmount);
+
+	virtual void InitializeFromAsset(UBehaviorTree& Asset) override;
 };

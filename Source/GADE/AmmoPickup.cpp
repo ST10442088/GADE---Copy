@@ -15,10 +15,9 @@ AAmmoPickup::AAmmoPickup()
 void AAmmoPickup::BeginPlay()
 {
 	Super::BeginPlay();
-	this->autoGunCollider->OnComponentBeginOverlap.AddDynamic(this, &AAmmoPickup::OnOverlapPickup);
 }
 
-void AAmmoPickup::OnOverlapPickup(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AAmmoPickup::OnPickupOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (UWeaponComponent* weaponComponent = (*OtherActor).FindComponentByClass<UWeaponComponent>())
 	{
@@ -29,3 +28,4 @@ void AAmmoPickup::OnOverlapPickup(UPrimitiveComponent* OverlappedComp, AActor* O
 		}
 	}
 }
+
