@@ -55,7 +55,7 @@ void ACustomGameMode::BeginPlay()
 		latestEntry.killAmount = 0;
 		currentLeaderboardStandings.Add(latestEntry);
 	}	
-	GetWorldTimerManager().SetTimer(gameDurationTimer, this, &ACustomGameMode::EndGameSession, timerDelayAndDuration, false);// 1.F, false, timerDelayAndDuration);
+	GetWorldTimerManager().SetTimer(gameDurationTimer, this, &ACustomGameMode::EndGameSession, timerDelayAndDuration, false);
 }
 
 void ACustomGameMode::IncreaseKillCount(FName killerName)

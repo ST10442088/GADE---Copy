@@ -23,59 +23,69 @@ void UHealthComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	(*GetOwner()).OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DrainHealth);
+	if (GetOwner() != nullptr)
+	{
+		(*GetOwner()).OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DrainHealth);
+	}
+
 }
 
 void UHealthComponent::DrainHealth(AActor* damagedActor, float healthAmountLost, const UDamageType* damageType, AController* InstigatedBy, AActor* damageBringer)
 {
 	if (GetOwner() == nullptr) return;
-	Health = Health - healthAmountLost;
-			if (InstigatedBy->GetPawn() == nullptr)
-			{
-               	UE_LOG(LogTemp, Warning, TEXT("No Instigator"));
-			}
-	HealthAmountChange.Broadcast(Health);
-	if (Health <= 0)
+	if (GetOwner() != nullptr)
 	{
-		Health = 0;
-		AActor* ownerOfThisComponent = GetOwner();
-		AController* characterController = Cast<AController>((*ownerOfThisComponent).GetInstigatorController());
-		if (characterController == nullptr)
+	
+		Health = Health - healthAmountLost;
+		HealthAmountChange.Broadcast(Health);
+	
+		if (Health <= 0)
 		{
-			if (APawn* pawnOwning = Cast<APawn>(ownerOfThisComponent))
+			Health = 0;
+
+			AActor* ownerOfThisComponent = GetOwner();
+		
+			AController* characterController = Cast<AController>((*ownerOfThisComponent).GetInstigatorController());
+		
+			if (characterController == nullptr)
 			{
-				characterController = (*pawnOwning).GetController();
+				if (APawn* pawnOwning = Cast<APawn>(ownerOfThisComponent))
+				{	
+					characterController = (*pawnOwning).GetController();
+				}
 			}
-		}
 
-		if (characterController != nullptr)
-		{
-			APawn* instigatingPawn = nullptr;
-			if ( damageBringer != nullptr)
+		
+			if (characterController != nullptr)	
 			{
-               instigatingPawn = (*damageBringer).GetInstigator();
-	     	}
+				APawn* instigatingPawn = nullptr;
 
-			if (instigatingPawn != nullptr)
-			{
+				if ( damageBringer != nullptr)	
+				{  
+					instigatingPawn = (*damageBringer).GetInstigator();  	
+				}
 
-				for (const FName& possibleTag : desiredTags)
+				if (instigatingPawn != nullptr)	
 				{
-					if ((*instigatingPawn).ActorHasTag(possibleTag) == true)
+					for (const FName& possibleTag : desiredTags)
 					{
-						ACustomGameMode* gameMode = Cast<ACustomGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-						if (gameMode != nullptr)
+						if ((*instigatingPawn).ActorHasTag(possibleTag) == true)
 						{
-							(*gameMode).IncreaseKillCount(possibleTag);
-							(*gameMode).RespawnCharacter(characterController);
-						}
+							ACustomGameMode* gameMode = Cast<ACustomGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+				
+							if (gameMode != nullptr)		
+							{
+								(*gameMode).IncreaseKillCount(possibleTag);
+								(*gameMode).RespawnCharacter(characterController);
+							}
+						}	
 					}
 				}
 			}
+
+			(*ownerOfThisComponent).Destroy();
 		}
-
-		(*ownerOfThisComponent).Destroy();
-
 	}
+
 }
 

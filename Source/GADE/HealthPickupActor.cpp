@@ -12,7 +12,7 @@
 AHealthPickupActor::AHealthPickupActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 	healthPickupCollider = CreateDefaultSubobject<USphereComponent>(TEXT("Health Collider"));
 	RootComponent = healthPickupCollider;
 
@@ -44,18 +44,12 @@ void AHealthPickupActor::ActivateDisablingTimer()
 
 }
 
-// Called every frame
-void AHealthPickupActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 void AHealthPickupActor::OnPickupOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (UHealthComponent* healthComponent = (*OtherActor).FindComponentByClass<UHealthComponent>())
 	{
-		(*healthComponent).Health = (*healthComponent).Health + 25;
+		(*healthComponent).Health = (*healthComponent).Health + 30;
 		(*healthComponent).HealthAmountChange.Broadcast((*healthComponent).Health);
 		ActivateDisablingTimer();
 

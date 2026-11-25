@@ -84,7 +84,7 @@ void UWeaponComponent::AttachWeaponToCharacter(ABaseWeaponClass* weaponToBeAttac
 
 	if (weaponToBeAttached == automaticPickupWeapon)
 	{
-	    (*weaponToBeAttached).AttachToComponent((*ownerOfThisWeaponComponent).GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName(TEXT("AutoGunSocket")));
+	    (*weaponToBeAttached).AttachToComponent((*ownerOfThisWeaponComponent).GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName(TEXT("AutoGunSocket")));
 		(*weaponToBeAttached).SetOwner(ownerOfThisWeaponComponent);
 		(*weaponToBeAttached).SetInstigator(ownerOfThisWeaponComponent);
 
@@ -92,7 +92,7 @@ void UWeaponComponent::AttachWeaponToCharacter(ABaseWeaponClass* weaponToBeAttac
 
 	else if (weaponToBeAttached == defaultRifleWeapon)
 	{
-		(*weaponToBeAttached).AttachToComponent((*ownerOfThisWeaponComponent).GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName(TEXT("DefaultRifleSocket")));
+		(*weaponToBeAttached).AttachToComponent((*ownerOfThisWeaponComponent).GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName(TEXT("DefaultRifleSocket")));
 		(*weaponToBeAttached).SetOwner(ownerOfThisWeaponComponent);
 		(*weaponToBeAttached).SetInstigator(ownerOfThisWeaponComponent);
 	}
