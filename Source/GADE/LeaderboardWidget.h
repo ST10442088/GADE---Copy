@@ -37,10 +37,19 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UButton* RestartButton;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* TitleScreenButton;
+
 	UFUNCTION()
 	void OnResumeButtonClick();
 
 	UFUNCTION()
 	void OnRestartButtonClick();
+
+	UFUNCTION()
+	void OnTitleScreenButtonClick();
+
+	UPROPERTY()
+	FName titleScreenLevelName = "TitleScreen";
 
 };

@@ -48,6 +48,4 @@ private:
 protected:
 	virtual void BeginPlay() override;
 
-	bool hasMatchEnded = false;
-
 };

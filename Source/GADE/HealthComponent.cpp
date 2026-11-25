@@ -64,20 +64,14 @@ void UHealthComponent::DrainHealth(AActor* damagedActor, float healthAmountLost,
 				{  
 					instigatingPawn = (*damageBringer).GetInstigator();  	
 				}
-			
-				if (instigatingPawn == nullptr)
-				{
-				   UE_LOG(LogTemp, Warning, TEXT("Instigating pawn not available"));
-				}
 
 				if (instigatingPawn != nullptr)	
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Instigating pawn available"));
+
 					for (const FName& possibleTag : desiredTags)
 					{
 						if ((*instigatingPawn).ActorHasTag(possibleTag) == true)
 						{
-					        UE_LOG(LogTemp, Warning, TEXT("Has tag available"));
 							ACustomGameMode* gameMode = Cast<ACustomGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 				
 							if (gameMode != nullptr)		

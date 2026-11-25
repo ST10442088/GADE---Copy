@@ -67,6 +67,12 @@ void ULeaderboardWidget::NativeConstruct()
 		(*RestartButton).OnClicked.RemoveDynamic(this, &ULeaderboardWidget::OnRestartButtonClick);
 		(*RestartButton).OnClicked.AddDynamic(this, &ULeaderboardWidget::OnRestartButtonClick);
 	}
+
+	if (TitleScreenButton != nullptr)
+	{
+		(*TitleScreenButton).OnClicked.RemoveDynamic(this, &ULeaderboardWidget::OnTitleScreenButtonClick);
+		(*TitleScreenButton).OnClicked.AddDynamic(this, &ULeaderboardWidget::OnTitleScreenButtonClick);
+	}
 }
 
 void ULeaderboardWidget::OnResumeButtonClick()
@@ -82,4 +88,9 @@ void ULeaderboardWidget::OnRestartButtonClick()
 	UGameplayStatics::SetGamePaused(GetWorld(), false);
 	FName currentLevelName = FName(UGameplayStatics::GetCurrentLevelName(GetWorld()));
 	UGameplayStatics::OpenLevel(this, currentLevelName);
+}
+
+void ULeaderboardWidget::OnTitleScreenButtonClick()
+{
+	UGameplayStatics::OpenLevel(this, titleScreenLevelName);
 }

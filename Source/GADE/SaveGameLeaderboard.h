@@ -30,16 +30,4 @@ class GADE_API USaveGameLeaderboard : public USaveGame
 {
 	GENERATED_BODY()
 
-public:
-	UPROPERTY(VisibleAnywhere)
-	TArray<FLeaderboardEntry> SavedLeaderboardEntries;
-
-	UPROPERTY(VisibleAnywhere)
-	FString SaveSlotName = TEXT("LeaderboardSaveSlot");
-
-	UPROPERTY(VisibleAnywhere)
-	int32 userIndex = 0;
-
-
-	
 };
