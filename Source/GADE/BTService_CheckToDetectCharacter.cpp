@@ -43,7 +43,6 @@ void UBTService_CheckToDetectCharacter::TickNode(UBehaviorTreeComponent & OwnerC
 		UClass* classToFilterBy = ACharacter::StaticClass();
 
 		bool enemyCharacterSphereDetector = UKismetSystemLibrary::SphereOverlapActors(GetWorld(), sphereLocation, sphereRadius, objectTypes, classToFilterBy, actorsToBeIgnored, actorsOverlapped);
-		DrawDebugSphere(GetWorld(), sphereLocation, sphereRadius, 24, FColor::Green, false, 1.f, 0, 2.5f);
 
 		AActor* entityClosestToThisAI = nullptr;
 		float closestDistanceToThisAI = MAX_FLT;
