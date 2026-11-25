@@ -7,6 +7,12 @@
 #include "LeaderboardWidget.h"
 #include "MyPlayerController.generated.h"
 
+UENUM(BlueprintType)
+enum class EUIStates : uint8
+{
+	Playing, Paused, MatchOver
+};
+
 /**
  * 
  */
@@ -33,6 +39,11 @@ public:
 	class UInputAction* IA_Pause;
 
 	virtual void SetupInputComponent() override;
+
+	void SwitchUIState(EUIStates newUIstate);
+
+private:
+	EUIStates currentUIState = EUIStates::Playing;
 
 protected:
 	virtual void BeginPlay() override;
