@@ -26,8 +26,5 @@ protected:
 
 	virtual void OnPossess(APawn* InPawn) override;
 
-	UFUNCTION()
-	void OnTargetPerceptionUpdate(AActor* actor, FAIStimulus AIStimulus);
-
-	void HandleEnemyDestroyed(AActor* DestroyedActor);
+	UMaterialInterface* botMaterial;
 };

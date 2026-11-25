@@ -28,30 +28,22 @@ void ABotAIController::OnPossess(APawn* InPawn)
 	{
 		RunBehaviorTree(BotBehaviorTree);
 	}
-}
 
-void ABotAIController::OnTargetPerceptionUpdate(AActor* actor, FAIStimulus AIStimulus)
-{
-	UBlackboardComponent* blackboardComponent = GetBlackboardComponent();
-	FAISenseID  senseID = UAISense::GetSenseID<UAISense_Sight>();
-	if (ACharacter* detectedCharacter = Cast<ACharacter>(actor))
-	{
-	    if (AIStimulus.Type == senseID && AIStimulus.WasSuccessfullySensed())
-	    {
-		   (*blackboardComponent).SetValueAsObject(FName("EnemyEntity"), detectedCharacter);
-		   SetFocus(detectedCharacter);
-    	}
+    if (ACharacter* botCharacter = Cast<ACharacter>(InPawn))
+    {
+        if (USkeletalMeshComponent* botMesh = (*botCharacter).GetMesh())
+        {
+            if (botMaterial == nullptr)
+            {
+                botMaterial = (*botMesh).GetMaterial(0);
+            }
 
-		else
-		{
-			if ((*blackboardComponent).GetValueAsObject("EnemyEntity") == detectedCharacter)
-			{
-				(*blackboardComponent).ClearValue(FName("EnemyEntity"));
-				ClearFocus(EAIFocusPriority::Gameplay);
-			}
-		}
-	}
-
+            else
+            {
+                (*botMesh).SetMaterial(0, botMaterial);
+            }
+        }
+    }
 }
 
 
