@@ -13,6 +13,12 @@ void ACustomGameMode::RespawnCharacter(AController* characterController)
 {
 	if (characterController == nullptr) { return; }
 
+	TArray<FName> savedTags;
+	if (APawn* oldPawn = (*characterController).GetPawn())
+	{
+		savedTags = (*oldPawn).Tags;
+	}
+
 	TSubclassOf<APawn> pawnClassToSpawn = DefaultPawnClass;
 	if ((*characterController).IsA(AAIController::StaticClass()) == true)
 	{
@@ -38,6 +44,7 @@ void ACustomGameMode::RespawnCharacter(AController* characterController)
 		APawn* pawnToBeSpawned = (*GetWorld()).SpawnActor<APawn>(pawnClassToSpawn, characterSpawnLocation, characterRotation, spawnParams);
 		if (pawnToBeSpawned != nullptr)
 		{
+			(*pawnToBeSpawned).Tags = savedTags;
 			(*characterController).Possess(pawnToBeSpawned);
 		}
 	}

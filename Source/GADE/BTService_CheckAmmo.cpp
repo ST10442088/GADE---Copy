@@ -51,6 +51,4 @@ void UBTService_CheckAmmo::OnAmmoChanged(int32 ammoAmount)
 	{
 		(*blackboardComponent).SetValueAsBool(IsAmmoBelowHalf.SelectedKeyName, true);
 	}
-
-	UE_LOG(LogTemp, Warning, TEXT("New ammo: %d"), ammoAmount);
 }

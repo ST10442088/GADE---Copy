@@ -29,8 +29,6 @@ void ULeaderboardWidget::UpdateAndRefreshLeaderboard()
 		{	
 			(*leaderboardScrollBox).AddChild(newestSlot);
 			(*newestSlot).SetUpRow(leaderboardEntry);
-
-			UE_LOG(LogTemp, Warning, TEXT("Kill amnt: %d"), leaderboardEntry.killAmount);
 		}
 	}
 }
