@@ -22,13 +22,13 @@ void UBTService_CheckToDetectCharacter::TickNode(UBehaviorTreeComponent & OwnerC
 	    blackboardComponent = OwnerComponent.GetBlackboardComponent();
 
 	    const ABotAIController* aiController = Cast<ABotAIController>(OwnerComponent.GetAIOwner());
-	    if (aiController == nullptr) { return; }
+		if (aiController == nullptr) { UE_LOG(LogTemp, Warning, TEXT("No Controller")); return; }
 
 	    APawn* aiControlledPawn = (*aiController).GetPawn();
-	    if (aiControlledPawn == nullptr) { return; }
+	    if (aiControlledPawn == nullptr) { UE_LOG(LogTemp, Warning, TEXT("No pawn")); return; }
 
     	aiControlledCharacter = Cast<ABotCharacter>(aiControlledPawn);
-    	if (aiControlledCharacter == nullptr) { return; }
+    	if (aiControlledCharacter == nullptr) { UE_LOG(LogTemp, Warning, TEXT("No character")); return; }
 
 
 		FVector sphereLocation = (*aiControlledCharacter).GetActorLocation();
@@ -49,11 +49,12 @@ void UBTService_CheckToDetectCharacter::TickNode(UBehaviorTreeComponent & OwnerC
 		float closestDistanceToThisAI = MAX_FLT;
 
 		if (enemyCharacterSphereDetector == true)
-		{
+		{		UE_LOG(LogTemp, Warning, TEXT("Something"));
 			for (AActor* overlappedActorsList : actorsOverlapped)
 			{
 				if (ACharacter* overlappedCharActor = Cast<ACharacter>(overlappedActorsList))
 				{
+		            UE_LOG(LogTemp, Warning, TEXT("Something 1"));
 					float distance = FVector::DistSquared(sphereLocation, (*overlappedCharActor).GetActorLocation());
 					if (closestDistanceToThisAI > distance)
 					{

@@ -9,24 +9,21 @@
 
 ABotAIController::ABotAIController()
 {
-	const auto sightSenseConfig = CreateDefaultSubobject<UAISenseConfig_Sight>("Sight Sense Configuration");
-	(*sightSenseConfig).SightRadius = 800.f;
-	(*sightSenseConfig).LoseSightRadius = 1000.f;
-	(*sightSenseConfig).PeripheralVisionAngleDegrees = 45.f;
-	(*sightSenseConfig).DetectionByAffiliation.bDetectEnemies = true;
-	(*sightSenseConfig).DetectionByAffiliation.bDetectFriendlies = true;
-	(*sightSenseConfig).DetectionByAffiliation.bDetectNeutrals = true;
 
-	PerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("Perception Component");
-	(*PerceptionComponent).ConfigureSense(*sightSenseConfig);
-	(*PerceptionComponent).SetDominantSense((*sightSenseConfig).GetSenseImplementation());
-	(*PerceptionComponent).AgeStimuli(4.f);
-	//(*PerceptionComponent).OnTargetPerceptionUpdated.AddDynamic(this, &ABotAIController::OnTargetPerceptionUpdate);
 }
 
 void ABotAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
+
+	if (UBlackboardComponent* blackboardComponent = GetBlackboardComponent())
+	{
+		(*blackboardComponent).SetValueAsBool(TEXT("IsHealthTooLow"), false);
+		(*blackboardComponent).ClearValue(TEXT("EnemyEntity"));
+		(*blackboardComponent).ClearValue(TEXT("LocationToMoveToKey"));
+		(*blackboardComponent).ClearValue(TEXT("HealthPickupLocation"));
+	}
+
     if (ensureMsgf(BotBehaviorTree, TEXT("Behavior Tree is nullptr! Please assign BehaviorTree in your AI Controller.")))
 	{
 		RunBehaviorTree(BotBehaviorTree);

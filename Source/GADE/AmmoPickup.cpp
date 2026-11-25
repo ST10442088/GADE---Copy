@@ -24,6 +24,7 @@ void AAmmoPickup::OnPickupOverlap(UPrimitiveComponent* OverlappedComp, AActor* O
 		(*weaponComponent).RefillAmmo();
 		if ((*weaponComponent).RefillAmmo() == true)
 		{
+
 			Destroy();
 		}
 	}

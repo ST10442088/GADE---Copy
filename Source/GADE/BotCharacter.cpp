@@ -5,6 +5,8 @@
 #include "WeaponComponent.h"
 #include "PatrolPoints.h"
 #include "HealthComponent.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 ABotCharacter::ABotCharacter()
@@ -19,7 +21,8 @@ ABotCharacter::ABotCharacter()
 void ABotCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	patrolPointActor = Cast<APatrolPoints>(UGameplayStatics::GetActorOfClass(GetWorld(), APatrolPoints::StaticClass()));
+
 }
 
 // Called every frame

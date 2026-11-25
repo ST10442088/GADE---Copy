@@ -92,7 +92,7 @@ void UWeaponComponent::AttachWeaponToCharacter(ABaseWeaponClass* weaponToBeAttac
 
 	else if (weaponToBeAttached == defaultRifleWeapon)
 	{
-		(*weaponToBeAttached).AttachToComponent((*ownerOfThisWeaponComponent).GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName(TEXT("DefaultRifleSocket")));
+		(*weaponToBeAttached).AttachToComponent((*ownerOfThisWeaponComponent).GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName(TEXT("DefaultRifleSocket")));
 		(*weaponToBeAttached).SetOwner(ownerOfThisWeaponComponent);
 		(*weaponToBeAttached).SetInstigator(ownerOfThisWeaponComponent);
 	}
@@ -154,7 +154,11 @@ void UWeaponComponent::FireBulletsWithEquippedWeapon()
 
 int32 UWeaponComponent::GetCurrentAmmoAmount()
 {
-	return automaticPickupWeapon->currentAmmoAmount;
+	if (automaticPickupWeapon != nullptr)
+	{
+		return automaticPickupWeapon->currentAmmoAmount;
+	}
+	return 0;
 }
 
 
