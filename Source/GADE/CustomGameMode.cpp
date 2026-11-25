@@ -55,7 +55,7 @@ void ACustomGameMode::BeginPlay()
 		latestEntry.killAmount = 0;
 		currentLeaderboardStandings.Add(latestEntry);
 	}	
-	GetWorldTimerManager().SetTimer(gameDurationTimer, this, &ACustomGameMode::EndGameSession, 1.F, false, timerDelayAndDuration);
+	GetWorldTimerManager().SetTimer(gameDurationTimer, this, &ACustomGameMode::EndGameSession, timerDelayAndDuration, false);// 1.F, false, timerDelayAndDuration);
 }
 
 void ACustomGameMode::IncreaseKillCount(FName killerName)
@@ -76,6 +76,15 @@ TArray<FLeaderboardEntry> ACustomGameMode::GetFinalLeaderboard() const
 	TArray<FLeaderboardEntry> sortedLeaderboard = currentLeaderboardStandings;
 	sortedLeaderboard.Sort();
 	return sortedLeaderboard;
+}
+
+int32 ACustomGameMode::GetRemainingTime() const
+{
+	if (GetWorldTimerManager().IsTimerActive(gameDurationTimer))
+	{
+		return GetWorldTimerManager().GetTimerRemaining(gameDurationTimer);
+	}
+	return 0;
 }
 
 

@@ -32,6 +32,9 @@ public:
 	UFUNCTION(BlueprintPure)
 	TArray<FLeaderboardEntry> GetFinalLeaderboard() const;
 
+	UFUNCTION(BlueprintPure)
+	int32 GetRemainingTime() const;
+
 private:
 	 FTimerHandle gameDurationTimer;
 	 float timerDelayAndDuration = 300.F;
